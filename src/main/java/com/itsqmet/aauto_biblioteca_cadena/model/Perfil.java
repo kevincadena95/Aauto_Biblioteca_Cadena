@@ -1,6 +1,7 @@
 package com.itsqmet.aauto_biblioteca_cadena.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -31,16 +32,24 @@ public class Perfil {
     @Size(max = 500, message = "La reconocimientos/premios no puede superar 500 caracteres")
     private String reconocimientos;
 
+//relacion 1:1
+    @OneToOne
+    @JoinColumn(name = "autor_id", nullable = false)
+    @JsonIgnoreProperties("perfil")
+    private Autor autor;
+
+
     public Perfil() {
     }
 
-    public Perfil(Long id, String fechaNacimiento, String fechaFallecimiento, String nacionalidad, String ocupacion, String reconocimientos) {
+    public Perfil(Long id, String fechaNacimiento, String fechaFallecimiento, String nacionalidad, String ocupacion, String reconocimientos, Autor autor) {
         this.id = id;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaFallecimiento = fechaFallecimiento;
         this.nacionalidad = nacionalidad;
         this.ocupacion = ocupacion;
         this.reconocimientos = reconocimientos;
+        this.autor = autor;
     }
 
     public Long getId() {
@@ -89,5 +98,13 @@ public class Perfil {
 
     public void setReconocimientos(String reconocimientos) {
         this.reconocimientos = reconocimientos;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
 }

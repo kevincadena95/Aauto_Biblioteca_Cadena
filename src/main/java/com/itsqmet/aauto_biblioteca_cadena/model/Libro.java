@@ -25,10 +25,6 @@ public class Libro {
     @Size(max = 500, message = "La sinopsis no puede superar 500 caracteres")
     private String sinopsis;
 
-    @NotBlank(message = "El campo autor no puede estar vacio")
-    @Size(min = 2, max = 25, message = ("El autor no cumple con el rango de caracteres de 2-25"))
-    private String autor;
-
     @NotBlank(message = "La fecha de publicacion es obligatoria")
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "La fecha debe tener el formato yyyy-MM-dd")
     private String fechaPublicacion;
@@ -42,19 +38,36 @@ public class Libro {
     @Min(value = 0, message = "El stock no puede ser negativo")
     private Integer stock;
 
+    //relacion con autor
+    @ManyToOne
+    @JoinColumn(name = "autor_id",  nullable = false)
+    @JsonIgnoreProperties("libros")
+    private Autor autor;
+
+    //relacion N:N con categoria
+    @ManyToMany
+    @JoinTable(
+            name = "libros_categorias",
+            joinColumns = @JoinColumn(name = "libro_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
+    @JsonIgnoreProperties("libros")
+    private List<Categoria> categorias = new ArrayList<>();
+
 
     public Libro() {
     }
 
-    public Libro(Long id, String titulo, String isbn, String sinopsis, String autor, String fechaPublicacion, Double precio, Integer stock) {
+    public Libro(Long id, String titulo, String isbn, String sinopsis, String fechaPublicacion, Double precio, Integer stock, Autor autor, List<Categoria> categorias) {
         this.id = id;
         this.titulo = titulo;
         this.isbn = isbn;
         this.sinopsis = sinopsis;
-        this.autor = autor;
         this.fechaPublicacion = fechaPublicacion;
         this.precio = precio;
         this.stock = stock;
+        this.autor = autor;
+        this.categorias = categorias;
     }
 
     public Long getId() {
@@ -89,14 +102,6 @@ public class Libro {
         this.sinopsis = sinopsis;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
     public String getFechaPublicacion() {
         return fechaPublicacion;
     }
@@ -121,6 +126,19 @@ public class Libro {
         this.stock = stock;
     }
 
+    public Autor getAutor() {
+        return autor;
+    }
 
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 }

@@ -26,14 +26,27 @@ public class Autor {
     private String biografiaCorta;
 
 
+    //relacion 1:1 con perfil
+    @OneToOne(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("autor")
+    private Perfil perfil;
+
+    //relacion 1:N con libros
+    @OneToMany(mappedBy = "autor")
+    @JsonIgnoreProperties("autor")
+    private List<Libro> libros;
+
+
     public Autor() {
     }
 
-    public Autor(Long id, String nombre, String apellido, String biografiaCorta) {
+    public Autor(Long id, String nombre, String apellido, String biografiaCorta, Perfil perfil, List<Libro> libros) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.biografiaCorta = biografiaCorta;
+        this.perfil = perfil;
+        this.libros = libros;
     }
 
     public Long getId() {
@@ -68,5 +81,12 @@ public class Autor {
         this.biografiaCorta = biografiaCorta;
     }
 
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 }
 

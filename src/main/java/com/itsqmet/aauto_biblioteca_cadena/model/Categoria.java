@@ -21,14 +21,21 @@ public class Categoria {
     @Size(max = 200, message = "La descripción no puede superar 200 caracteres")
     private String descripcion;
 
+    //relacion N:N con libros
+
+    @ManyToMany(mappedBy = "categorias")
+    @JsonIgnoreProperties("categorias")
+    private List<Libro> libros = new ArrayList<>();
+
 
     public Categoria() {
     }
 
-    public Categoria(Long id, String nombreCategoria, String descripcion) {
+    public Categoria(Long id, String nombreCategoria, String descripcion, List<Libro> libros) {
         this.id = id;
         this.nombreCategoria = nombreCategoria;
         this.descripcion = descripcion;
+        this.libros = libros;
     }
 
     public Long getId() {
@@ -53,5 +60,13 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
     }
 }
