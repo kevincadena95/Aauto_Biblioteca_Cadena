@@ -21,10 +21,6 @@ public class Autor {
     @Size(min = 2, max = 25, message = "El apellido debe tener entre 2 y 25 caracteres")
     private String apellido;
 
-    @NotBlank(message = "El campo nacionalidad no puede estar vacío")
-    @Size(min = 2, max = 50, message = "La nacionalidad debe tener entre 2 y 50 caracteres")
-    @Column(nullable = false)
-    private String nacionalidad;
 
     @Size(max = 500, message = "La biografía corta no puede superar 500 caracteres")
     private String biografiaCorta;
@@ -33,11 +29,10 @@ public class Autor {
     public Autor() {
     }
 
-    public Autor(Long id, String nombre, String apellido, String nacionalidad, String biografiaCorta) {
+    public Autor(Long id, String nombre, String apellido, String biografiaCorta) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.nacionalidad = nacionalidad;
         this.biografiaCorta = biografiaCorta;
     }
 
@@ -63,14 +58,6 @@ public class Autor {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
     }
 
     public String getBiografiaCorta() {

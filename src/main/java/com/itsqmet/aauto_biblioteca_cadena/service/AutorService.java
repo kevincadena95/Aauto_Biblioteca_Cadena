@@ -38,7 +38,6 @@ public class AutorService {
         return autorRepository.findById(id).map(autor -> {
             autor.setNombre(autorActualizado.getNombre());
             autor.setApellido(autorActualizado.getApellido());
-            autor.setNacionalidad(autorActualizado.getNacionalidad());
             autor.setBiografiaCorta(autorActualizado.getBiografiaCorta());
 
             return autorRepository.save(autor);
