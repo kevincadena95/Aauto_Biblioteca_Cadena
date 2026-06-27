@@ -88,5 +88,13 @@ public class Autor {
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
+
+    public List<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(List<Libro> libros) {
+        this.libros = libros;
+    }
 }
 
