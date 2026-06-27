@@ -37,7 +37,6 @@ public class PerfilService {
 
     public Optional<Perfil> actualizar(Long id, Perfil perfilActualizado) {
         return perfilRepository.findById(id).map(perfil -> {
-            perfil.setId(perfilActualizado.getId());
             perfil.setFechaNacimiento(perfilActualizado.getFechaNacimiento());
             perfil.setFechaFallecimiento(perfilActualizado.getFechaFallecimiento());
             perfil.setNacionalidad(perfilActualizado.getNacionalidad());

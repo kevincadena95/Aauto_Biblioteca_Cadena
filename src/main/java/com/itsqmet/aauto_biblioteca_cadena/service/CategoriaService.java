@@ -37,7 +37,6 @@ public class CategoriaService {
 
     public Optional<Categoria> actualizar(Long id, Categoria categoriaActualizada) {
         return categoriaRepository.findById(id).map(categoria -> {
-            categoria.setId(categoriaActualizada.getId());
             categoria.setNombreCategoria(categoriaActualizada.getNombreCategoria());
             categoria.setDescripcion(categoriaActualizada.getDescripcion());
 
